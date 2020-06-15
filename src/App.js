@@ -1,41 +1,42 @@
-import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import NewJam from "./pages/NewJam";
+import React, { useState } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import './App.css';
+import Home from './pages/Home';
+import NewJam from './pages/NewJam';
 
 //bring in typescript soon
 
 const sampleJams = [
   {
     id: 1,
-    songname: "Sample Jam Yep",
+    songname: 'Sample Jam Yep',
     minilouge: 198,
     mpcseq: 12,
     bpm: 120,
     brutepatch: 2,
     bruteseq: 3,
-    delay: "test 3",
-    chords: "C D D Eb",
-    lyrics: "testme lyrics",
-    notes: "test notes lorem ipsum yea boi etc",
+    delay: 'test 3',
+    chords: 'C D D Eb',
+    lyrics: 'testme lyrics',
+    notes: 'test notes lorem ipsum yea boi etc',
   },
   {
     id: 2,
-    songname: "Some other Jam blueberry",
+    songname: 'Some other Jam blueberry',
     minilouge: 194,
     mpcseq: 9,
     bpm: 120,
     brutepatch: 5,
     bruteseq: 5,
-    delay: "test 2",
-    chords: "C D D Eb Eb Amin",
-    lyrics: "testme lyrics oh yeah",
-    notes: "test notes lorem ipsum yea boi etc",
+    delay: 'test 2',
+    chords: 'C D D Eb Eb Amin',
+    lyrics: 'testme lyrics oh yeah',
+    notes: 'test notes lorem ipsum yea boi etc',
   },
 ];
 
 function App() {
+  // could end up using useReducer instead of useState here
   const [jams, setJams] = useState(sampleJams);
 
   // on add jam func would be here and call setJams
@@ -76,7 +77,6 @@ function App() {
       <hr />
 
       <p>Use context to pass this if it goes deeper</p>
-      {/* <NewSong handleAddJam={handleAddJam} /> */}
     </div>
   );
 }
