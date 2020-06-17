@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,8 +8,6 @@ import { JamsContext } from '../App';
 export default function EditJam({ handleEditJam, match }) {
   const history = useHistory();
   const { getJamBySlug } = useContext(JamsContext);
-
-  console.log('is match', match.params.songslug);
 
   const currentJam = getJamBySlug(match.params.songslug);
   console.count('how many times does this component render?');

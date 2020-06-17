@@ -1,16 +1,26 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import App from "./App";
-import NewJam from "./pages/NewJam";
+import React, { useContext } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-export default function Router({ children }) {
+import NewJam from './pages/NewJam';
+import Home from './pages/Home';
+import EditJam from './pages/EditJam';
+import Jam from './components/Jam';
+import { JamsContext } from './App';
+
+export default function Router({ jams }) {
+  const { handleEditJam, handleAddJam } = useContext(JamsContext);
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={App}></Route>
-        <Route exact path="/new" component={NewJam}></Route>
-      </Switch>
-      {children}
-    </BrowserRouter>
+    <Switch>
+      <Route
+        path="/new"
+        render={props => <NewJam handleAddJam={handleAddJam} />}
+      />
+      <Route
+        path="/jams/edit/:songslug"
+        render={props => <EditJam {...props} handleEditJam={handleEditJam} />}
+      />
+      <Route path="/jams/:songslug" component={Jam} />
+      <Route exact path="/" render={props => <Home {...props} jams={jams} />} />
+    </Switch>
   );
 }

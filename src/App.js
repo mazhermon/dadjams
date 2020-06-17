@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Switch, Route, Link, Router } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 import './App.css';
-import Home from './pages/Home';
-import NewJam from './pages/NewJam';
-import EditJam from './pages/EditJam';
+import Router from './Router';
 
 export const JamsContext = React.createContext();
 
@@ -31,27 +29,27 @@ const sampleJams = [
     songslug: 'some-other-jam-blueberry',
     minilouge: 194,
     mpcseq: 9,
-    bpm: 120,
+    bpm: 160,
     brutepatch: 5,
     bruteseq: 5,
     delay: 'test 2',
     chords: 'C D D Eb Eb Amin',
     lyrics: 'testme lyrics oh yeah',
-    notes: 'test notes lorem ipsum yea boi etc',
+    notes: 'test notes for blue jam',
   },
 ];
 
 function App() {
-  // could end up using useReducer instead of useState here
   const history = useHistory();
+  // could end up using useReducer instead of useState here
 
   const [jams, setJams] = useState(sampleJams);
-  const [selectedJamId, setSelectedJamId] = useState(null);
+  //const [selectedJamId, setSelectedJamId] = useState(null);
 
   const jamsProvider = {
-    handleSelectedJam,
     handleEditJam,
     handleDeleteJam,
+    handleAddJam,
     getJamBySlug,
   };
 
@@ -59,17 +57,10 @@ function App() {
     setJams([...jams, newJamToAdd]);
   }
 
-  function handleSelectedJam(id) {
-    // not using this, just use a link
-    setSelectedJamId(id);
-  }
-
   //move this to a service or something
   function getJamBySlug(slug) {
     return [...jams].find(jam => jam.songslug === slug);
   }
-
-  // const selectedJam = jams.find(jam => jam.id === selectedJamId);
 
   function handleEditJam(id, updatedJam) {
     console.log('call handleEditJam from app with ', updatedJam);
@@ -77,42 +68,30 @@ function App() {
     const jamToUpdateIndex = newJams.findIndex(jam => jam.id === id);
     newJams[jamToUpdateIndex] = updatedJam;
     setJams(newJams);
-    // history.push('/');
   }
 
   function handleDeleteJam(id) {
     const jamsCopyToFilter = [...jams];
     const newJams = jamsCopyToFilter.filter(jam => jam.id !== id);
     setJams(newJams);
+    history.push('/');
   }
 
   return (
     <div className="dad-jams-app">
       <JamsContext.Provider value={jamsProvider}>
-        <p>Just chuck it all here for now and use router later</p>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/new">New Jam</Link>
+            </li>
+          </ul>
+        </nav>
 
-        <Link to="/">Home</Link>
-        <Link to="/new">New Jam</Link>
-
-        <hr />
-
-        <Switch>
-          <Route
-            path="/new"
-            render={props => <NewJam handleAddJam={handleAddJam} />}
-          ></Route>
-          <Route
-            path="/jams/edit/:songslug"
-            render={props => (
-              <EditJam {...props} handleEditJam={handleEditJam} />
-            )}
-          ></Route>
-          <Route
-            exact
-            path="/"
-            render={props => <Home {...props} jams={jams} />}
-          ></Route>
-        </Switch>
+        <Router jams={jams} />
       </JamsContext.Provider>
     </div>
   );

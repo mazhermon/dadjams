@@ -1,11 +1,16 @@
 import React from 'react';
-import Jam from '../components/Jam';
 import { Link } from 'react-router-dom';
 
 export default function Home({ jams }) {
-  function handleCreateSong() {
-    console.log('create a song, route to new and display form');
-  }
+  // function handleCreateSong() {
+  //   console.log('create a song, route to new and display form');
+  // }
+
+  const jamListItemLinks = jams.map(jam => (
+    <li key={jam.id}>
+      <Link to={`/jams/${jam.songslug}`}>{jam.songname}</Link>
+    </li>
+  ));
 
   return (
     <div>
@@ -21,9 +26,10 @@ export default function Home({ jams }) {
       <p>also put these in the menu</p>
       <p>Then just list the song titles and link to jam page with router</p>
 
-      {jams.map(jam => (
-        <Jam jam={jam} key={jam.id} />
-      ))}
+      {/* <Jam jam={jam} key={jam.id} /> */}
+      <nav>
+        <ul>{jamListItemLinks}</ul>
+      </nav>
     </div>
   );
 }

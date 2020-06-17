@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { JamsContext } from '../App';
 
-export default function Jam({ jam, match }) {
-  const { handleDeleteJam } = useContext(JamsContext);
+export default function Jam({ match }) {
+  const { handleDeleteJam, getJamBySlug } = useContext(JamsContext);
+
+  // set the jam from the url
+  const jamSlug = match.params.songslug;
+  const jam = getJamBySlug(jamSlug);
 
   return (
     <div>
@@ -11,11 +15,12 @@ export default function Jam({ jam, match }) {
       <h2>id is {jam.id}</h2>
       <table>
         {/* This really is tabbular data so a table is the appropriate markup here,
-          this is not an old school layout hack lol, it's an a11y appropraite decision */}
+          this is not an old school layout hack lol, it's an a11y appropraite decision :D */}
         <caption>
           Synth patch settings and general info for {jam.songname} jam session
         </caption>
         <tbody>
+          {/* could make an array of objects and loop through them instead */}
           {jam.minilouge && (
             <tr>
               <th scope="row">Minilouge</th>
@@ -64,7 +69,6 @@ export default function Jam({ jam, match }) {
               <td>{jam.lyrics}</td>
             </tr>
           )}
-
           {jam.notes && (
             <tr>
               <th scope="row">Notes</th>
