@@ -1,11 +1,12 @@
-import React from "react";
-import Jam from "../components/Jam";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Jam from '../components/Jam';
+import { Link } from 'react-router-dom';
 
-export default function Home({ jams, handleDeleteJam }) {
+export default function Home({ jams }) {
   function handleCreateSong() {
-    console.log("create a song, route to new and display form");
+    console.log('create a song, route to new and display form');
   }
+
   return (
     <div>
       <h1>DadJams yo</h1>
@@ -20,8 +21,8 @@ export default function Home({ jams, handleDeleteJam }) {
       <p>also put these in the menu</p>
       <p>Then just list the song titles and link to jam page with router</p>
 
-      {jams.map((jam) => (
-        <Jam jam={jam} key={jam.id} handleDeleteJam={handleDeleteJam} />
+      {jams.map(jam => (
+        <Jam jam={jam} key={jam.id} />
       ))}
     </div>
   );

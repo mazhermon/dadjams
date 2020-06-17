@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
-import { useHistory } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
+// import JamForm from '../components/JamForm';
 
 export default function NewJam({ handleAddJam }) {
   const history = useHistory();
@@ -16,17 +18,22 @@ export default function NewJam({ handleAddJam }) {
   const lyricsRef = useRef(null);
   const notesRef = useRef(null);
 
+  function createSongSlug(songname) {
+    return songname.trim().toLowerCase().split(' ').join('-');
+  }
+
   function createJamOnFormSubmit(e) {
     e.preventDefault();
 
     const newJam = {
       id: uuidv4(),
-      songname: songnameRef.current.value,
-      minilouge: parseInt(minilougeRef.current.value),
-      mpcseq: parseInt(mpcseqRef.current.value),
-      bpm: parseInt(bpmRef.current.value),
+      songname: songnameRef.current.value.trim(),
+      songslug: createSongSlug(songnameRef.current.value),
+      minilouge: parseInt(minilougeRef.current.value) || '',
+      mpcseq: parseInt(mpcseqRef.current.value) || '',
+      bpm: parseInt(bpmRef.current.value) || '',
       brutepatch: brutepatchRef.current.value,
-      bruteseq: parseInt(bruteseqRef.current.value),
+      bruteseq: parseInt(bruteseqRef.current.value) || '',
       delay: delayRef.current.value,
       chords: chordsRef.current.value,
       lyrics: lyricsRef.current.value,
@@ -34,12 +41,29 @@ export default function NewJam({ handleAddJam }) {
     };
 
     handleAddJam(newJam);
-    history.push("/");
+    history.push('/');
   }
+
+  // const formProps = {
+  //   handleSubmit: createJamOnFormSubmit,
+  //   songnameRef,
+  //   minilougeRef,
+  //   mpcseqRef,
+  //   bpmRef,
+  //   brutepatchRef,
+  //   bruteseqRef,
+  //   delayRef,
+  //   chordsRef,
+  //   lyricsRef,
+  //   notesRef,
+  // };
 
   return (
     <div>
       <h1>Add Song</h1>
+      {/* <p>use a form, but pass in all the refs as props</p> */}
+      {/* <JamForm {...formProps} /> */}
+
       <form onSubmit={createJamOnFormSubmit}>
         <div>
           <label htmlFor="songname">Name</label>
