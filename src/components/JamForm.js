@@ -3,6 +3,7 @@ import { JamsContext } from '../App';
 
 export default function JamForm(props) {
   const {
+    isNew,
     handleSubmit,
     songnameRef,
     minilougeRef,
@@ -20,6 +21,7 @@ export default function JamForm(props) {
   const { handleEditJam } = useContext(JamsContext);
 
   function handleOnChange(changes) {
+    if (isNew) return;
     const updatedJam = { ...jam, ...changes };
     console.log('calling handle edit jam from jam form with ', updatedJam);
     handleEditJam(jam.id, updatedJam);

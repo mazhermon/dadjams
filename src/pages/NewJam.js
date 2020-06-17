@@ -2,10 +2,12 @@ import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-// import JamForm from '../components/JamForm';
+import JamForm from '../components/JamForm';
 
 export default function NewJam({ handleAddJam }) {
   const history = useHistory();
+
+  const id = uuidv4();
 
   const songnameRef = useRef(null);
   const minilougeRef = useRef(null);
@@ -22,11 +24,13 @@ export default function NewJam({ handleAddJam }) {
     return songname.trim().toLowerCase().split(' ').join('-');
   }
 
+  let newJam = {};
+
   function createJamOnFormSubmit(e) {
     e.preventDefault();
 
-    const newJam = {
-      id: uuidv4(),
+    newJam = {
+      id,
       songname: songnameRef.current.value.trim(),
       songslug: createSongSlug(songnameRef.current.value),
       minilouge: parseInt(minilougeRef.current.value) || '',
@@ -41,30 +45,30 @@ export default function NewJam({ handleAddJam }) {
     };
 
     handleAddJam(newJam);
-    history.push('/');
+    history.push(`/jams/${newJam.songslug}`);
   }
 
-  // const formProps = {
-  //   handleSubmit: createJamOnFormSubmit,
-  //   songnameRef,
-  //   minilougeRef,
-  //   mpcseqRef,
-  //   bpmRef,
-  //   brutepatchRef,
-  //   bruteseqRef,
-  //   delayRef,
-  //   chordsRef,
-  //   lyricsRef,
-  //   notesRef,
-  // };
+  const formProps = {
+    handleSubmit: createJamOnFormSubmit,
+    songnameRef,
+    minilougeRef,
+    mpcseqRef,
+    bpmRef,
+    brutepatchRef,
+    bruteseqRef,
+    delayRef,
+    chordsRef,
+    lyricsRef,
+    notesRef,
+  };
 
   return (
     <div>
       <h1>Add Song</h1>
       {/* <p>use a form, but pass in all the refs as props</p> */}
-      {/* <JamForm {...formProps} /> */}
+      <JamForm isNew={true} jam={newJam} {...formProps} />
 
-      <form onSubmit={createJamOnFormSubmit}>
+      {/* <form onSubmit={createJamOnFormSubmit}>
         <div>
           <label htmlFor="songname">Name</label>
           <input type="text" name="songname" ref={songnameRef} id="songname" />
@@ -120,7 +124,7 @@ export default function NewJam({ handleAddJam }) {
         </div>
 
         <button type="submit">Add</button>
-      </form>
+      </form> */}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import NewJam from './pages/NewJam';
 import Home from './pages/Home';
 import EditJam from './pages/EditJam';
 import Jam from './components/Jam';
+import NotFound from './pages/NotFound';
 import { JamsContext } from './App';
 
 export default function Router({ jams }) {
@@ -21,6 +22,7 @@ export default function Router({ jams }) {
       />
       <Route path="/jams/:songslug" component={Jam} />
       <Route exact path="/" render={props => <Home {...props} jams={jams} />} />
+      <Route component={NotFound} />
     </Switch>
   );
 }

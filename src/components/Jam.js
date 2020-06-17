@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { JamsContext } from '../App';
 
@@ -7,7 +7,11 @@ export default function Jam({ match }) {
 
   // set the jam from the url
   const jamSlug = match.params.songslug;
-  const jam = getJamBySlug(jamSlug);
+  let jam = getJamBySlug(jamSlug) || {};
+
+  // useEffect(() => {
+  //   jam = getJamBySlug(jamSlug) || {};
+  // }, [jam]);
 
   return (
     <div>
