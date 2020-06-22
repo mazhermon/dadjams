@@ -3,6 +3,8 @@
 This is a fun project for a specific use case where Tim &amp; Maz need quick access to patch settings
 for our hardware synths and drum machines when making loud noise as DadJams.
 
+[DadJams on Soundcloud](https://soundcloud.com/dadjamsnz)
+
 This could be extended to allow users to build up there own custom jam schemas, but that's not useful just yet for me. Maybe you wanna fork it and change it to your needs?
 
 This is custom to our needs and not really a useful tool for others, but it's also just something fun to build
