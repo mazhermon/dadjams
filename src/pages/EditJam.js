@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import JamForm from '../components/JamForm';
@@ -12,16 +12,7 @@ export default function EditJam({ handleEditJam, match }) {
   const currentJam = getJamBySlug(songslug) || {};
   console.count('how many times does this component render?');
 
-  const songnameRef = useRef(null);
-  const minilougeRef = useRef(null);
-  const mpcseqRef = useRef(null);
-  const bpmRef = useRef(null);
-  const brutepatchRef = useRef(null);
-  const bruteseqRef = useRef(null);
-  const delayRef = useRef(null);
-  const chordsRef = useRef(null);
-  const lyricsRef = useRef(null);
-  const notesRef = useRef(null);
+  const [delay, setDelay] = useState(currentJam.delay || null);
 
   function updateJamOnFormSubmit(e) {
     e.preventDefault();
@@ -30,16 +21,8 @@ export default function EditJam({ handleEditJam, match }) {
 
   const formProps = {
     handleSubmit: updateJamOnFormSubmit,
-    songnameRef,
-    minilougeRef,
-    mpcseqRef,
-    bpmRef,
-    brutepatchRef,
-    bruteseqRef,
-    delayRef,
-    chordsRef,
-    lyricsRef,
-    notesRef,
+    delay,
+    setDelay,
   };
 
   return (

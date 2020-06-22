@@ -1,17 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { JamsContext } from '../App';
 
 export default function Jam({ match }) {
   const { handleDeleteJam, getJamBySlug } = useContext(JamsContext);
-
-  // set the jam from the url
   const jamSlug = match.params.songslug;
   let jam = getJamBySlug(jamSlug) || {};
-
-  // useEffect(() => {
-  //   jam = getJamBySlug(jamSlug) || {};
-  // }, [jam]);
 
   return (
     <div>
@@ -61,7 +55,7 @@ export default function Jam({ match }) {
               <td>{jam.delay}</td>
             </tr>
           )}
-          {jam.thchordsng && (
+          {jam.chords && (
             <tr>
               <th scope="row">Chords</th>
               <td>{jam.chords}</td>
@@ -81,7 +75,6 @@ export default function Jam({ match }) {
           )}
         </tbody>
       </table>
-      {/* <button onClick={() => handleSelectedJam(jam.id)}>Edit</button> */}
       <Link to={`/jams/edit/${jam.songslug}`}>Edit</Link>
       <button onClick={() => handleDeleteJam(jam.id)}>Delete &times;</button>
       <hr />

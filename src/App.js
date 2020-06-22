@@ -6,7 +6,9 @@ import Router from './Router';
 
 export const JamsContext = React.createContext();
 
-//bring in typescript soon
+// TODO
+// bring in typescript soon
+// make an enum for the delay values
 
 const sampleJams = [
   {
@@ -18,7 +20,7 @@ const sampleJams = [
     bpm: 120,
     brutepatch: 2,
     bruteseq: 3,
-    delay: 'test 3',
+    delay: 'delay1',
     chords: 'C D D Eb',
     lyrics: 'testme lyrics',
     notes: 'test notes lorem ipsum yea boi etc',
@@ -32,7 +34,7 @@ const sampleJams = [
     bpm: 160,
     brutepatch: 5,
     bruteseq: 5,
-    delay: 'test 2',
+    delay: 'delay2',
     chords: 'C D D Eb Eb Amin',
     lyrics: 'testme lyrics oh yeah',
     notes: 'test notes for blue jam',
@@ -42,9 +44,7 @@ const sampleJams = [
 function App() {
   const history = useHistory();
   // could end up using useReducer instead of useState here
-
   const [jams, setJams] = useState(sampleJams);
-  //const [selectedJamId, setSelectedJamId] = useState(null);
 
   const jamsProvider = {
     handleEditJam,
@@ -55,6 +55,7 @@ function App() {
 
   function handleAddJam(newJamToAdd) {
     setJams([...jams, newJamToAdd]);
+    console.log('new jam to add, newJamToAdd');
   }
 
   //move this to a service or something

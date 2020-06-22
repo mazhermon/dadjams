@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { JamsContext } from '../App';
 
+//using refs for the add new song but not for the edit song
 export default function JamForm(props) {
   const {
     isNew,
+    delay,
+    setDelay,
     handleSubmit,
     songnameRef,
     minilougeRef,
@@ -11,7 +14,6 @@ export default function JamForm(props) {
     bpmRef,
     brutepatchRef,
     bruteseqRef,
-    delayRef,
     chordsRef,
     lyricsRef,
     notesRef,
@@ -20,14 +22,17 @@ export default function JamForm(props) {
 
   const { handleEditJam } = useContext(JamsContext);
 
+  function handleOnDelaySelectedChange(newDelayValue) {
+    setDelay(newDelayValue);
+    handleOnChange({ delay: newDelayValue });
+  }
+
   function handleOnChange(changes) {
     if (isNew) return;
     const updatedJam = { ...jam, ...changes };
     console.log('calling handle edit jam from jam form with ', updatedJam);
     handleEditJam(jam.id, updatedJam);
   }
-
-  // think about when to use the form submit and handSubmit
 
   return (
     <div>
@@ -99,15 +104,44 @@ export default function JamForm(props) {
           />
         </div>
         <div>
-          <label htmlFor="delay">Delay</label>
-          <input
-            value={jam && jam.delay}
-            onChange={e => handleOnChange({ delay: e.target.value })}
-            type="text"
-            name="delay"
-            ref={delayRef}
-            id="delay"
-          />
+          <fieldset>
+            {/* visually hide the legend and replace with label */}
+            <legend>Delay patch select</legend>
+            <div>
+              <input
+                value="delay1"
+                checked={delay === 'delay1'}
+                onChange={e => handleOnDelaySelectedChange(e.target.value)}
+                type="radio"
+                name="delay"
+                id="delay1"
+              />
+              <label htmlFor="delay1">One</label>
+            </div>
+            <div>
+              <input
+                value="delay2"
+                checked={delay === 'delay2'}
+                onChange={e => handleOnDelaySelectedChange(e.target.value)}
+                type="radio"
+                name="delay"
+                id="delay2"
+              />
+              <label htmlFor="delay2">Two</label>
+            </div>
+            <div>
+              <input
+                value="delay3"
+                checked={delay === 'delay3'}
+                onChange={e => handleOnDelaySelectedChange(e.target.value)}
+                type="radio"
+                name="delay"
+                id="delay3"
+              />
+              <label htmlFor="delay3">Three</label>
+            </div>
+          </fieldset>
+
           <p>Make this a radio button control</p>
         </div>
         <div>
